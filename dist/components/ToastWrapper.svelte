@@ -1,21 +1,26 @@
-<script>import { onMount } from "svelte";
-import { prefersReducedMotion } from "../core/utils";
-import ToastBar from "./ToastBar.svelte";
-import ToastMessage from "./ToastMessage.svelte";
-export let toast;
-export let setHeight;
-let wrapperEl;
-onMount(() => {
-  setHeight(wrapperEl.getBoundingClientRect().height);
-});
-$:
-  top = toast.position?.includes("top") ? 0 : null;
-$:
-  bottom = toast.position?.includes("bottom") ? 0 : null;
-$:
-  factor = toast.position?.includes("top") ? 1 : -1;
-$:
-  justifyContent = toast.position?.includes("center") && "center" || (toast.position?.includes("right") || toast.position?.includes("end")) && "flex-end" || null;
+<script lang="ts">
+	import { onMount } from 'svelte';
+
+	import type { DOMToast } from '../core/types';
+	import { prefersReducedMotion } from '../core/utils';
+	import ToastBar from './ToastBar.svelte';
+	import ToastMessage from './ToastMessage.svelte';
+
+	export let toast: DOMToast;
+	export let setHeight: (height: number) => void;
+
+	let wrapperEl: HTMLElement;
+	onMount(() => {
+		setHeight(wrapperEl.getBoundingClientRect().height);
+	});
+
+	$: top = toast.position?.includes('top') ? 0 : null;
+	$: bottom = toast.position?.includes('bottom') ? 0 : null;
+	$: factor = toast.position?.includes('top') ? 1 : -1;
+	$: justifyContent =
+		(toast.position?.includes('center') && 'center') ||
+		((toast.position?.includes('right') || toast.position?.includes('end')) && 'flex-end') ||
+		null;
 </script>
 
 <div

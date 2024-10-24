@@ -1,4 +1,3 @@
-/// <reference types="svelte" />
 import type { Toast, ToastOptions, ToastPosition } from './types';
 declare function calculateOffset(toast: Toast, $toasts: Toast[], opts?: {
     reverseOrder?: boolean;

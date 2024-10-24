@@ -1,4 +1,7 @@
-<script>export let toast;
+<script lang="ts">
+	import type { Toast } from '../core/types';
+
+	export let toast: Toast;
 </script>
 
 <div class="message" {...toast.ariaProps}>

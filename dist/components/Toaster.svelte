@@ -1,23 +1,28 @@
-<script>import useToaster from "../core/use-toaster";
-import ToastWrapper from "./ToastWrapper.svelte";
-export let reverseOrder = false;
-export let position = "top-center";
-export let toastOptions = void 0;
-export let gutter = 8;
-export let containerStyle = void 0;
-export let containerClassName = void 0;
-const { toasts, handlers } = useToaster(toastOptions);
-let _toasts;
-$:
-  _toasts = $toasts.map((toast) => ({
-    ...toast,
-    position: toast.position || position,
-    offset: handlers.calculateOffset(toast, $toasts, {
-      reverseOrder,
-      gutter,
-      defaultPosition: position
-    })
-  }));
+<script lang="ts">
+	import useToaster from '../core/use-toaster';
+	import type { DOMToast, ToastOptions, ToastPosition } from '../core/types';
+	import ToastWrapper from './ToastWrapper.svelte';
+
+	export let reverseOrder = false;
+	export let position: ToastPosition = 'top-center';
+	export let toastOptions: ToastOptions | undefined = undefined;
+	export let gutter = 8;
+	export let containerStyle: string | undefined = undefined;
+	export let containerClassName: string | undefined = undefined;
+
+	const { toasts, handlers } = useToaster(toastOptions);
+
+	let _toasts: DOMToast[];
+
+	$: _toasts = $toasts.map((toast) => ({
+		...toast,
+		position: toast.position || position,
+		offset: handlers.calculateOffset(toast, $toasts, {
+			reverseOrder,
+			gutter,
+			defaultPosition: position
+		})
+	}));
 </script>
 
 <div

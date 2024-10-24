@@ -1,6 +1,9 @@
 <!-- Adapted from https://github.com/timolins/react-hot-toast -->
-<script>export let primary = "#61d345";
-export let secondary = "#fff";
+<script lang="ts">
+	import type { IconTheme } from '../core/types';
+
+	export let primary: IconTheme['primary'] = '#61d345';
+	export let secondary: IconTheme['secondary'] = '#fff';
 </script>
 
 <div style:--primary={primary} style:--secondary={secondary}></div>

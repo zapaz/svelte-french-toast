@@ -1,18 +1,25 @@
-<script>import ToastIcon from "./ToastIcon.svelte";
-import { prefersReducedMotion } from "../core/utils";
-import ToastMessage from "./ToastMessage.svelte";
-export let toast;
-export let position = void 0;
-export let style = "";
-export let Component = void 0;
-let factor;
-let animation;
-$: {
-  const top = (toast.position || position || "top-center").includes("top");
-  factor = top ? 1 : -1;
-  const [enter, exit] = prefersReducedMotion() ? ["fadeIn", "fadeOut"] : ["enter", "exit"];
-  animation = toast.visible ? enter : exit;
-}
+<script lang="ts">
+	import ToastIcon from './ToastIcon.svelte';
+	import type { Toast, ToastPosition } from '../core/types';
+	import { prefersReducedMotion } from '../core/utils';
+	import type { SvelteComponent } from 'svelte';
+	import ToastMessage from './ToastMessage.svelte';
+
+	export let toast: Toast;
+	export let position: ToastPosition | undefined = undefined;
+	export let style = '';
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	export let Component: typeof SvelteComponent<any> | undefined = undefined;
+
+	let factor: number;
+	let animation: string;
+	$: {
+		const top = (toast.position || position || 'top-center').includes('top');
+		factor = top ? 1 : -1;
+
+		const [enter, exit] = prefersReducedMotion() ? ['fadeIn', 'fadeOut'] : ['enter', 'exit'];
+		animation = toast.visible ? enter : exit;
+	}
 </script>
 
 <div

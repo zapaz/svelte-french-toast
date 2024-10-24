@@ -1,9 +1,11 @@
-<script>import CheckmarkIcon from "./CheckmarkIcon.svelte";
-import ErrorIcon from "./ErrorIcon.svelte";
-import LoaderIcon from "./LoaderIcon.svelte";
-export let toast;
-$:
-  ({ type, icon, iconTheme } = toast);
+<script lang="ts">
+	import CheckmarkIcon from './CheckmarkIcon.svelte';
+	import ErrorIcon from './ErrorIcon.svelte';
+	import LoaderIcon from './LoaderIcon.svelte';
+	import type { Toast } from '../core/types';
+
+	export let toast: Toast;
+	$: ({ type, icon, iconTheme } = toast);
 </script>
 
 {#if typeof icon === 'string'}
